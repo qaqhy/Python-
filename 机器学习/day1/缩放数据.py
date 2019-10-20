@@ -1,5 +1,6 @@
-from sklearn.preprocessing import MinMaxScaler
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import MinMaxScaler, StandardScaler, scale
+from sklearn.impute import SimpleImputer
+import numpy as np
 
 
 def mm():
@@ -20,6 +21,28 @@ def stand():
 	data = st.fit_transform([[12, 23, 13, 33], [92, 63, 73, 33], [15, 93, 33, 35]])
 	print(data)
 
+
+def t_scale():
+	"""标准化缩放"""
+	x_train = np.array([[12, 23, 13, 33], [92, 63, 73, 33], [15, 93, 33, 35]])
+	print(x_train)
+	data = scale(x_train)
+	# data = scale([[12, 23, 13, 33], [92, 63, 73, 33], [15, 93, 33, 35]])
+	print(data)
+
+
+def sm():
+	"""缺失值处理"""
+	# nan. NaN
+	# strategy填补的策略，mean是平均值填补
+	# verbose填补按行还是列，0按列平均值填补，1按行平均值填补
+	it = SimpleImputer(missing_values=np.nan, strategy='mean', verbose=1)
+	data = it.fit_transform([[12, 23, 13, 33], [92, np.nan, np.nan, 33], [15, 93, 33, 35]])
+	print(data)
+
+
 if __name__ == '__main__':
-	mm()
+	# mm()
 	stand()
+	t_scale()
+	# sm()
