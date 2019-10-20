@@ -5,6 +5,8 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import jieba
 
 
+# 类别性数据：one-hot编码
+
 def func_dict():
 	"""字典特征值化，字典数据抽取"""
 	# 实例化
