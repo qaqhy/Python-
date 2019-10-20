@@ -25,9 +25,21 @@ def pca():
 	print(data)
 
 
+def test():
+	import pandas as pd
+	t = pd.read_csv('./test.csv')
+	t1 = pd.read_csv('./test1.csv')
+	t2 = pd.read_csv('./test2.csv')
+	m = pd.merge(t, t1, on=['A', 'A'])
+	m = pd.merge(m, t2, on=['A', 'A'])
+	print(m)
+	print(m.head(10))
+
+
 if __name__ == '__main__':
-	variance()
-	pca()
+	# variance()
+	# pca()
+	test()
 
 
 
