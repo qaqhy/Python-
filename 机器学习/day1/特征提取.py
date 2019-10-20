@@ -1,23 +1,12 @@
-# 特征抽取
-# from sklearn.feature_extraction.text import CountVectorizer
-#
-# vector = CountVectorizer()
-#
-# res = vector.fit_transform(["city ni bu hao", "ni hao ma"])
-#
-# print(vector.get_feature_names())
-#
-# print(res.toarray())
-
-
+# 特征提取
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 import jieba
 
 
-# 字典特征值化
 def func_dict():
-	"""字典数据抽取"""
+	"""字典特征值化，字典数据抽取"""
 	# 实例化
 	# dv = DictVectorizer()  # 打印sparse矩阵
 	dv = DictVectorizer(sparse=False)  # 打印ndarray类型的数据 （数组，二维度）
@@ -27,7 +16,6 @@ def func_dict():
 	print(data)
 
 
-# 文本特征值化
 def func_count():
 	"""对文本进行特征值化"""
 	cv = CountVectorizer()
@@ -56,8 +44,28 @@ def chinese_vec():
 	print(res.toarray())  # 将矩阵转化成数组形式
 
 
+def tfidf_vec():
+	"""
+	# tf: term frequency:词的频率
+	# idf: inverse document frequency:逆文档频率 == log(总文档数量/该词出现的文档数量)
+	# tf*idf:重要性程度
+	"""
+	con1 = jieba.cut('人生苦短，我用python')
+	con2 = jieba.cut('人生漫长，我用python')
+	con1 = ' '.join(list(con1))
+	con2 = ' '.join(list(con2))
+
+	# tv = TfidfVectorizer(stop_words=None)  # 返回词的权重矩阵
+	tv = TfidfVectorizer()  # 返回词的权重矩阵
+	res = tv.fit_transform([con1, con2])
+	print(res)
+	print(tv.get_feature_names())
+	print(res.toarray())  # 将矩阵转化成数组形式
+
+
 if __name__ == '__main__':
 	# func_dict()
 	# func_count()
-	chinese_vec()
+	# chinese_vec()
+	tfidf_vec()
 
