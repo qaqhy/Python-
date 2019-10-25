@@ -32,7 +32,7 @@ def k_api():
 	# 把签到数量少于n个目标位置删除
 	place_count = data.groupby('place_id').count()  # 此时的index以悄然变成了place_id  且此时place_count会保留出place_id以外的特征，数值都为次数
 	# place_count 是分组之后数据， row_id 变成了具体的次数
-	tf = place_count[place_count.row_id > 3].reset_index()  # reset_index作用是使place_id变为数据的一个特征
+	tf = place_count[place_count.row_id > 3].reset_index()  # reset_index作用是使place_id变为数据的一个特征，为具体的次数
 	data = data[data['place_id'].isin(tf.place_id)]  # 筛选出data数据当中 place_id 相等的数据
 
 	# 取出数据当中的特征值和目标值
@@ -46,7 +46,6 @@ def k_api():
 	# 对测试集和训练集的特征值做标准化
 	x_train = std.fit_transform(x_train)
 	x_test = std.transform(x_test)
-
 
 	# 进行算法流程  knn估计器流程
 	knn = KNeighborsClassifier(n_neighbors=5)
