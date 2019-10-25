@@ -1,7 +1,8 @@
 from sklearn.datasets import fetch_20newsgroups
 from sklearn.model_selection import train_test_split
-from sklearn.naive_bayes import MultinomialNB  # 朴素贝叶斯算法api
+from sklearn.naive_bayes import MultinomialNB  # 朴素贝叶斯算法API
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics import classification_report  # 分类评估API  召回率、精确率
 import pandas as pd
 
 
@@ -27,7 +28,7 @@ def naviebayes():
 	y_predict = mlt.predict(x_test)
 	# 得出准确率
 	print(f'预测的准确率为：{mlt.score(x_test, y_test)}')
-
+	print(f'每个类别精确率和召回率：\n{classification_report(y_test, y_predict, target_names=news.target_names)}')
 
 
 if __name__ == '__main__':
