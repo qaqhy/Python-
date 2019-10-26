@@ -60,7 +60,7 @@ def k_api():
 
 def k_load_iris():
 	# 花萼长度，花萼宽度，花瓣长度，花瓣宽度，种类
-	data = pd.read_csv('iris.csv')
+	data = pd.read_csv('./data/iris.csv')
 	data.columns = ['sl', 'sw', 'pl', 'pw', 'type']
 	data = data.query('sl > 5.0')
 	y = data['type']  # 目标数据
