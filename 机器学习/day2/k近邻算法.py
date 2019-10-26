@@ -1,5 +1,5 @@
 from sklearn.neighbors import KNeighborsClassifier  # k近邻算法API
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, GridSearchCV  # 交叉验证需要的网格搜索API：GridSearchCV
 from sklearn.preprocessing import StandardScaler
 from sklearn.datasets import load_iris  # yuan wei hua（鸢尾花数据）
 import pandas as pd
@@ -73,16 +73,28 @@ def k_load_iris():
 	x_train = std.fit_transform(x_train)
 	x_test = std.transform(x_test)
 
+	# 1
 	# 进行算法流程  knn估计器流程
-	knn = KNeighborsClassifier(n_neighbors=10)
-	knn.fit(x_train, y_train)
-	# 得出预测结果
-	y_predict = knn.predict(x_test)
-	print(f'预测的目标类型为：{y_predict}')
-	# 得出准确率
-	print(f'预测的准确率：{knn.score(x_test, y_test)}')
-	# print(x_train)
-	# print(x_test)
+	# knn = KNeighborsClassifier(n_neighbors=10)
+	# knn.fit(x_train, y_train)
+	# # 得出预测结果
+	# y_predict = knn.predict(x_test)
+	# print(f'预测的目标类型为：{y_predict}')
+	# # 得出准确率
+	# print(f'预测的准确率：{knn.score(x_test, y_test)}')
+
+	# 2
+	# 交叉搜索方法：进行网格搜索（超参数）
+	knn = KNeighborsClassifier()  # 网格搜索不设置n_neighbors
+	# 构造参数的值进行搜索
+	param_grid = {'n_neighbors': [3, 5, 10]}
+	gc = GridSearchCV(knn, param_grid=param_grid, cv=2)  # cv是交叉验证的折叠数，通常设置10为最好
+	gc.fit(x_train, y_train)
+	# 预测准确率
+	print(f'预测的准确率：{gc.score(x_test, y_test)}')
+	print(f'在交叉验证中最好的结果：{gc.best_score_}')  #
+	print(f'在交叉验证中最好的模型：{gc.best_estimator_}')  # n_neighbors
+	print(f'每个超参数每次交叉验证的结果：{gc.cv_results_}')
 
 
 if __name__ == '__main__':
