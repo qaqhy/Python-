@@ -1,6 +1,6 @@
 from sklearn.tree import DecisionTreeClassifier, export_graphviz  # DecisionTreeClassifier决策树API，export_graphviz决策树可视化API
 from sklearn.feature_extraction import DictVectorizer
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier  # 导入随机森林预测API
 import pandas as pd
 
@@ -30,23 +30,29 @@ def decision():
 	print(dv.get_feature_names())
 	# print(x_train)
 
-	# 使用决策树进行预测 初始化决策树分类器
-	dtc = DecisionTreeClassifier()  # max_depth=5决策树深度限制为5
-	# 训练
-	dtc.fit(x_train, y_train)
-	# 预测 保存结果
-	dtc_y_predict = dtc.predict(x_test)
-	print(f'预测准确率为：{dtc.score(x_test, y_test)}')
-	# 导出决策树结构
-	# export_graphviz(dtc, out_file='./data/titanic.dot', feature_names=['age', 'pclass=1st', 'pclass=2nd', 'pclass=3rd', 'female', 'male'])
-
-	# # 初始化随机森林分类器
-	# rfc = RandomForestClassifier()
+	# # 使用决策树进行预测 初始化决策树分类器
+	# dtc = DecisionTreeClassifier()  # max_depth=5决策树深度限制为5
 	# # 训练
-	# rfc.fit(x_train, y_train)
-	# # 预测
-	# rfc_y_predict = rfc.predict(x_test)
-	# print(f'预测准确率为：{rfc.score(x_test, y_test)}')
+	# dtc.fit(x_train, y_train)
+	# # 预测 保存结果
+	# dtc_y_predict = dtc.predict(x_test)
+	# print(f'预测准确率为：{dtc.score(x_test, y_test)}')
+	# # 导出决策树结构
+	# # export_graphviz(dtc, out_file='./data/titanic.dot', feature_names=['age', 'pclass=1st', 'pclass=2nd', 'pclass=3rd', 'female', 'male'])
+
+	# 初始化随机森林分类器
+	rfc = RandomForestClassifier()
+	param = {'n_estimators': [120, 200, 300, 500, 800, 1200], 'max_depth': [5, 8, 15, 25, 35]}
+	# 网格搜索与交叉验证
+	gc = GridSearchCV(rfc, param_grid=param, cv=2)  # cv交叉验证折叠次数
+	# 训练
+	gc.fit(x_train, y_train)
+	# 预测
+	print(f'预测的准确率：{gc.score(x_test, y_test)}')
+	print(f'在交叉验证中最好的参数模型：{gc.best_params_}')
+	print(f'在交叉验证中最好的结果：{gc.best_score_}')  #
+	print(f'在交叉验证中最好的模型：{gc.best_estimator_}')  # n_neighbors
+	print(f'每个超参数每次交叉验证的结果：{gc.cv_results_}')
 
 
 if  __name__ == '__main__':
