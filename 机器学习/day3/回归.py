@@ -36,11 +36,20 @@ def my_linear():
 
 	# 预测数据正确性
 	# 正规方程求解预测结果
-	lr = LinearRegression()
-	lr.fit(x_train, y_train)
-	print(f'13个特征值的回归系数：{lr.coef_}')
+	# lr = LinearRegression()
+	# lr.fit(x_train, y_train)
+	# print(f'13个特征值的回归系数：{lr.coef_}')
+	# # 预测房子的价格
+	# y_predict = lr.predict(x_test)
+	# y_predict = std_y.inverse_transform(y_predict)  # 还原真实数据
+	# print(f'测试集里面每个房子的预测价格：{y_predict}')
+
+	# 梯度下降进行房价预测
+	sgd = SGDRegressor()
+	sgd.fit(x_train, y_train)
+	print(f'13个特征值的回归系数：{sgd.coef_}')
 	# 预测房子的价格
-	y_predict = lr.predict(x_test)
+	y_predict = sgd.predict(x_test)
 	y_predict = std_y.inverse_transform(y_predict)  # 还原真实数据
 	print(f'测试集里面每个房子的预测价格：{y_predict}')
 
