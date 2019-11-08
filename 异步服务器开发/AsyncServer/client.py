@@ -3,10 +3,8 @@
 # 一个简单的概念证明客户端，仅供内部使用。
 # 使用asyncio处理向服务器发送和接收消息。
 #
-import sys
-sys.path.insert(0, '..')
-
 import asyncio
+import ssl
 import json
 
 
@@ -20,8 +18,12 @@ class MyClient:
 		send_message（）将给定的消息发送到服务器，并
 		返回解码后的回调响应
 		'''
+		context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
+		path = './cert'
+		context.load_verify_locations(path + '/mycert.crt')
+		context.check_hostname = False
 		# 启动异步连接open_connection
-		reader, writer = await asyncio.open_connection(self._host, self._port)
+		reader, writer = await asyncio.open_connection(self._host, self._port, ssl=context)
 		# 编码字符串message
 		writer.write((message + '\r\n').encode())
 		# 刷新写缓冲区。预期用途是写
@@ -42,8 +44,9 @@ class MyClient:
 
 async def main():
 	myclient = MyClient()
-	for i in range(0, 100):
-		print(await myclient.send_message('{"方法":"客户端测试", "数据" : {"数据键" : "数据值"}}'))
+	print(await myclient.send_message('{"方法":"客户端测试", "数据" : {"数据键" : "数据值"}}'))
+	# for i in range(0, 100):
+	# 	print(await myclient.send_message('{"方法":"客户端测试", "数据" : {"数据键" : "数据值"}}'))
 
 
 if __name__ == "__main__":
