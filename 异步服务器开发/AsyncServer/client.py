@@ -12,6 +12,7 @@ class MyClient:
 	def __init__(self, client_type: str = '', host: str = '127.0.0.1', port: int = 8888):
 		self._host = host
 		self._port = port
+		# self._port = 4222
 
 	async def send_message(self, message: str) -> dict:
 		'''
@@ -24,6 +25,7 @@ class MyClient:
 		context.check_hostname = False
 		# 启动异步连接open_connection
 		reader, writer = await asyncio.open_connection(self._host, self._port, ssl=context)
+		# reader, writer = await asyncio.open_connection(self._host, self._port)
 		# 编码字符串message
 		writer.write((message + '\r\n').encode())
 		# 刷新写缓冲区。预期用途是写
