@@ -2,17 +2,10 @@
 #
 # 一个简单的概念证明服务器，仅供内部使用。
 # 使用asnycio有效地处理并发连接。
-#
-# 服务器实现以下协议：
-# 1）从客户端读取标头
-# 2）如果标题可以验证，请阅读剩余的消息
-# 否则丢弃消息并关闭连接
-# 3）完成要求的工作，并将验证发送回客户端。
-# 必须通过header_tool生成新的头。
-# 4）关闭连接
 import nats.aio.client
 import asyncio
 import ssl
+import aioredis
 
 HEADER_BUFFER_SIZE = 36
 channel = '我的主题'
