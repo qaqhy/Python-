@@ -9,7 +9,8 @@ import pandas as pd
 def naviebayes():
 	"""朴素贝叶斯进行文本分类"""
 	news = fetch_20newsgroups(subset='all')
-
+	# print(f"data:{news.data}")
+	# print(f"target:{news.target}")
 	# 数据分割
 	x_train, x_test, y_train, y_test = train_test_split(news.data, news.target, test_size=0.25)
 
