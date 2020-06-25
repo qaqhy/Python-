@@ -14,7 +14,10 @@ BOT_NAME = 'renren'
 SPIDER_MODULES = ['renren.spiders']
 NEWSPIDER_MODULE = 'renren.spiders'
 
-
+DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
+SCHEDULER = "scrapy_redis.scheduler.Scheduler"
+SCHEDULER_PERSIST = True
+REDIS_URL = 'redis://127.0.0.1:6379'
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 " \
              "Safari/537.36 "
