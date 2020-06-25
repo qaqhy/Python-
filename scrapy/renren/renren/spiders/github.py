@@ -15,8 +15,8 @@ class GithubSpider(scrapy.Spider):
         post_data = {
             "commit": "Sign in",
             "authenticity_token": authenticity_token,
-            "login": "2428437133@qq.com",
-            "password": "Hy2428437133",
+            "login": "username",
+            "password": "password",
             "webauthn-support": "supported",
             "webauthn-iuvpaa-support": "unsupported",
             "timestamp": timestamp,

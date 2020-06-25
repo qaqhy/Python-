@@ -12,8 +12,8 @@ class GithubSpider(scrapy.Spider):
         yield scrapy.FormRequest.from_response(
             response,
             formdata={
-                "login": "2428437133@qq.com",
-                "password": "Hy2428437133",
+                "login": "username",
+                "password": "password",
             },
             callback = self.after_login,
         )
