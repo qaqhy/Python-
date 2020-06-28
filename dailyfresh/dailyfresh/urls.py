@@ -20,5 +20,9 @@ from django.conf.urls import url, include
 urlpatterns = [
     # path('admin/', admin.site.urls),
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('apps.user.urls')),
+    url(r'^tinymce/', include('tinymce.urls')),  # 富文本编辑器
+    url(r'^user/', include('apps.user.urls', namespace='user')),  # 用户模块
+    url(r'^cart/', include('apps.cart.urls', namespace='cart')),  # 购物车模块
+    url(r'^order/', include('apps.order.urls', namespace='order')),  # 订单模块
+    url(r'^', include('apps.goods.urls', namespace='goods')),  # 商品模块
 ]
