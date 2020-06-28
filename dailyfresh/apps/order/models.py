@@ -45,8 +45,8 @@ class OrderGoods(BaseModel):
     is_default = models.BooleanField(default=False, verbose_name='是否默认')
 
     class Meta:
-        db_table = 'df_address'
-        verbose_name = '地址'
+        db_table = 'df_order_goods'
+        verbose_name = '订单商品'
         verbose_name_plural = verbose_name
 
 
