@@ -14,11 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
 from django.conf.urls import url, include
+app_name = 'DailyFresh'
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
     url(r'^admin/', admin.site.urls),
     url(r'^tinymce/', include('tinymce.urls')),  # 富文本编辑器
     url(r'^user/', include('apps.user.urls', namespace='user')),  # 用户模块
